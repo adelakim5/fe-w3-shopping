@@ -33,10 +33,11 @@ const mallEventItems = (href_url, img_url, title, info) => {
 
 const mileageListHtml = (array) => array.reduce((acc, val) => acc + mileageList(val.linkurl, val.imgurl), ``);
 
+// n개의 아이템으로 리스트 분할하는 방법 좀 더 생각해보기...
 const mallEventListHtml = (array) => {
   let lists = "";
-  return array.reduce((acc, val, idx) => {
-    const { imgurl, linkurl, text, text2 } = val;
+  return array.reduce((acc, product, idx) => {
+    // const { imgurl, linkurl, text, text2 } = val;
     if (!idx % 5) {
       acc += idx ? mallEventList(lists) : "";
       lists = "";
@@ -56,10 +57,7 @@ const pageDotsHtml = (slideLen, startNum) => {
   return new Promise((resolve, reject) => {
     const pageChild = [...Array(slideLen).keys()].reduce(
       (acc, val) =>
-        acc +
-        `<span class="btn_paging ${
-          val === startNum ? "dot_active" : ""
-        }" data-index="${val}"><span class="num_page"></span></span>`,
+        acc + `<span class="btn_paging ${val === startNum ? "dot_active" : ""}" data-index="${val}"><span class="num_page"></span></span>`,
       ``
     );
     resolve(pageChild);

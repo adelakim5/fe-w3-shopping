@@ -1,17 +1,23 @@
 export default class Slide {
-  constructor(carouselState, longClickState = undefined) {
-    this.carouselState = carouselState;
-    this.longClickState = longClickState;
+  constructor(carouselState) {
+    const { slideList, currIndex, currSlide, currDot, slidePagination, pageDots } = carouselState;
+    this.slideList = slideList;
+    this.currIndex = currIndex;
+    this.currSlide = currSlide;
+    this.currDot = currDot;
+    this.slidePagination = slidePagination;
+    this.pageDots = pageDots;
   }
 
   initCarouselState(startNum, slideContents) {
-    this.carouselState.currIndex = startNum;
-    this.carouselState.currSlide = slideContents[this.carouselState.currIndex];
-    this.carouselState.currSlide.classList.add("slide_active");
+    this.currIndex = startNum;
+    this.currSlide = slideContents[this.currIndex];
+    this.currSlide.classList.add("slide_active");
   }
 
   setTotalWidth(slideWidth, slideLen) {
-    this.carouselState.slideList.style.width = `${slideWidth * (slideLen + 2)}px`;
+    console.log(this.slideList);
+    this.slideList.style.width = `${slideWidth * (slideLen + 2)}px`;
   }
 
   cloneChildren(slideList) {
@@ -26,15 +32,15 @@ export default class Slide {
 
   addClones(children) {
     const { clonedFirst, clonedLast } = children;
-    this.carouselState.slideList.appendChild(clonedFirst);
-    this.carouselState.slideList.insertBefore(clonedLast, this.carouselState.slideList.firstElementChild);
+    this.slideList.appendChild(clonedFirst);
+    this.slideList.insertBefore(clonedLast, this.slideList.firstElementChild);
   }
 
   transform(slideWidth, value) {
-    this.carouselState.slideList.style.transform = `translateX(-${slideWidth * value}px)`;
+    this.slideList.style.transform = `translateX(-${slideWidth * value}px)`;
   }
 
   transition(ms) {
-    this.carouselState.slideList.style.transition = `${ms}ms`;
+    this.slideList.style.transition = `${ms}ms`;
   }
 }

@@ -14,12 +14,12 @@ const pagination = document.querySelector(".slide_pagination");
 const mileageItems = api(urls.mileageList)(setHtmls, htmlMaker.mileageListHtml, insertContents)(slideList);
 mileageItems
   .then(() => htmlMaker.paginationHtml(pagination))
-  .then((contents) =>
-    setCarousel(contents, "buttons_pagination", { slideList, slideWidth: 485 }, 0)(300, false, true)(
-      "slide_pagination",
-      "btn_paging"
-    )
-  );
+  .then((contents) => {
+    const spec = { slideList, slideWidth: 485, slideSpeed: 300 };
+    const paginationClassName = "slide_pagination";
+    const pageDotClassName = "btn_paging";
+    setCarousel(contents, "buttons_pagination", spec, 0)(false, true)(paginationClassName, pageDotClassName);
+  });
 
 // mallEvent 상품 - 더보기 클릭시 item 불러오기
 const mallEventSlideHtml = document.querySelector("#mallEventSlide");
@@ -27,10 +27,7 @@ const mallEventItems = api(urls.mallEventList)(setHtmls, htmlMaker.mallEventList
 
 const readmoreButton = document.querySelector("#mallEventList_more");
 readmoreButton.addEventListener("click", () =>
-  api(urls.mallEventList)(
-    insertAdjacent,
-    htmlMaker.mallEventListHtml
-  )(mallEventSlide).catch((err) => (readmoreButton.innerHTML = "마지막"))
+  api(urls.mallEventList)(insertAdjacent, htmlMaker.mallEventListHtml)(mallEventSlide).catch((err) => (readmoreButton.innerHTML = "마지막"))
 );
 
 // hotdeal 상품 - 캐러셀 5개 with longClick
@@ -39,7 +36,8 @@ const hotdealItems = api(urls.hotdeal)(setHtmls, htmlMaker.homeContentsList, ins
 hotdealItems.then(() => {
   const slideContents = document.querySelectorAll(".hotDeal_item");
   const hotdealList = document.querySelector(".content_hotDeal");
-  setCarousel(slideContents, "buttons_hotDeal", { slideList: hotdealList, slideWidth: 252 }, 0)(300, true, false)();
+  const spec = { slideList: hotdealList, slideWidth: 252, slideSpeed: 300 };
+  setCarousel(slideContents, "buttons_hotDeal", spec, 0)(true, false)();
 });
 
 // keyword 상품
