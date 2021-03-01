@@ -33,11 +33,27 @@ const mallEventItems = (href_url, img_url, title, info) => {
 
 const mileageListHtml = (array) => array.reduce((acc, val) => acc + mileageList(val.linkurl, val.imgurl), ``);
 
+// const chunk = (array, n) => {
+//   let list = ``
+//   for(let i=0; i<array.length; i+=n) {
+//     const currProd = array.slice(i, i+n)
+//     list += mallEventList(currProd.reduce((acc, val) => acc + mallEventItems(val.linkurl, val.imgurl, val.text, val.text2)))
+//   }
+//   return list
+// }
+
 // n개의 아이템으로 리스트 분할하는 방법 좀 더 생각해보기...
-const mallEventListHtml = (array) => {
+const mallEventListHtml = (array, n) => {
+  // let list = ``;
+  // for (let i = 0; i + n < array.length; i += n) {
+  //   const currProd = array.slice(i, i + n);
+  //   list += mallEventList(currProd.reduce((acc, val) => acc + mallEventItems(val.linkurl, val.imgurl, val.text, val.text2)));
+  // }
+  // return list;
+  // 오지게 안된다.. ㅜㅜ
   let lists = "";
   return array.reduce((acc, product, idx) => {
-    // const { imgurl, linkurl, text, text2 } = val;
+    const { imgurl, linkurl, text, text2 } = product;
     if (!idx % 5) {
       acc += idx ? mallEventList(lists) : "";
       lists = "";

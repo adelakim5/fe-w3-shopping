@@ -10,8 +10,9 @@ export default class Carousel extends Slide {
       this.timer = timer;
       this.isMoved = isMoved;
     }
-    this.create = (carouselMaterials, longClick) => (needPagination, paginationClassName, pageDotClassName) => {
-      const { slideContents, buttons, slideList, slideWidth, startNum, slideSpeed } = carouselMaterials;
+    this.create = (spec, longClick) => (needPagination, paginationClassName, pageDotClassName) => {
+      const { slideContents, buttonsClassName, slideList, slideWidth, startNum, slideSpeed } = spec;
+      const buttons = document.querySelector(`.${buttonsClassName}`);
       this.currIndex = startNum;
       this.slideList = slideList;
       const slideLen = slideContents.length;
